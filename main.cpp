@@ -1,7 +1,4 @@
-/* Created By Alex Steel
- * Using Jetbrains CLion IDE
- * A game of connect four for Ankur Gupta's C++ Class
- */
+
 #include <iostream>
 #include <fstream>
 #include <stdint.h>
@@ -21,394 +18,383 @@ using namespace std;
 //CheckTehMoves is a Function to Check if Computer Move Will Allow Human to Win
 
 void Creation(ostream &, char [][7], int8_t, int8_t);
-int8_t Human(ostream & out, bool Steel, char Board[][7], int8_t Rows, int8_t Columns);
-int8_t Computer(ostream & OutPut, int8_t Difficulty, bool FullMetal, char Board[][7], int8_t Rows, int8_t Columns);
-bool Vertical(char Board[][7], int8_t Rows, int8_t Columns, int8_t MoveRow, int8_t MoveColumn);
-bool Horizontal(char Board[][7], int8_t Rows, int8_t Columns, int8_t MoveRow, int8_t MoveColumn);
-bool Diagonal(char Board[][7], int8_t Rows, int8_t Columns, int8_t MoveRow, int8_t MoveColumn);
-bool TieGame(char Board[][7], int8_t Rows, int8_t Columns);
-int8_t CheckTehBoard(char GameSymbol, char Board[][7], int8_t Rows, int8_t Columns);
-int8_t * CheckTehMoves(char GameSymbol, char Board[][7],int8_t Rows, int8_t Columns);
+int8_t Human(ostream & OutPut, bool FullMetal, char board[][7], int8_t SplinterCell, int8_t Darkness);
+int8_t Computer(ostream & OutPut, int8_t Difficulty, bool FullMetal, char board[][7], int8_t SplinterCell, int8_t Darkness);
+bool Vertical(char board[][7], int8_t SplinterCell, int8_t Darkness, int8_t AK47, int8_t AK74);
+bool Horizontal(char board[][7], int8_t SplinterCell, int8_t Darkness, int8_t AK47, int8_t AK74);
+bool Diagonal(char board[][7], int8_t SplinterCell, int8_t Darkness, int8_t AK47, int8_t AK74);
+bool Tie(char board[][7], int8_t SplinterCell, int8_t Darkness);
+int8_t CheckTehBoardz(char symbol, char board[][7], int8_t SplinterCell, int8_t Darkness);
+int8_t * CheckTehMoves(char symbol, char board[][7],int8_t SplinterCell, int8_t Darkness);
+
 
 int main()
 {
-    int NumberOfPlayers;
-    //Computer Difficulty Level, Will be 1, 2, or 3
-    int8_t Difficulty;
-    //Whether Player has Won, or Quit
-    int8_t CharlieSheen = 0;//CharlieSheen is the var 'win'
-    bool FullMetal = 1;//FullMetal is the var 'player'
-    bool WhoGoesFirst; //Human or computer?
-    char Board [6][7] = {0}; //Filling the game board
-    ofstream OutPutFile; //Prints results to specified File
-    OutPutFile.open("GameLog.txt");
-    //Creating a menu for the game
-    cout << "Welcome to the not so simple game of connect fur." << endl;
-    cout << "How many players will be playing today??" << endl;
-    //initialize a loop until User selects how many players will be playing
+    int NumberOfPlayers; //Number of Human Players
+    int8_t Difficulty; //Computer Difficulty Level, Will be 1, 2, or 3
+    int8_t win = 0; //Whether Player has Won, or Quit, Will be 0, 1, or 2 When Returned
+    bool FullMetal = 1; //Player Number, Initialized to Second Player
+    bool WhoGoesFirst; //In 1 Human Player Game, Pick Who Goes First, Human or Computer
+    char board [6][7] = {0}; //Game Board
+    ofstream OutPut; //File to Print Results to
+    OutPut.open("GameLog.txt"); //Open GameLog
+    //Menu of Game
+    cout<<"Welcome to the Connect Four Game"<<endl;
+    cout<<"How many players will there be?"<<endl;
+    //Loop Till Correct Input for Number of Players
     do
     {
-        cout << "Please Enter an Integer Value Between 0 and 2." << endl;
-        cout << "0 is CvC. 1 is PvC. 2 is PvP" << endl;
-        cin >> NumberOfPlayers;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cin.clear();
-    }while(NumberOfPlayers < 0 || NumberOfPlayers > 2);
-    //Starting the game if User selects a valid player Count
-    if(NumberOfPlayers < 2)
+        cout << "Press: 0 For CvC, 1 For PvC, or 2 For PvP " << endl;
+        cin>>NumberOfPlayers;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); //discard input
+        cin.clear(); //clear bad input flag
+
+    }
+    while (NumberOfPlayers<0 || NumberOfPlayers>2);
+    if (NumberOfPlayers<2) //If at Least One Computer Player
     {
-        //Creating a Random Number Generator
-        srand(time(NULL));
-        int BadInputVariable;
-        cout<<"\nPlease Select The Difficulty of the Computer."<<endl;
-        //Selecting a Difficulty Level, Assuming all other conditions have been met so far.
-        do
+        srand(time(NULL));	//Will Need Random Number Generator
+        int BitchingFirstMove; //Temp Variable to Handle Human Error in Inputs
+        cout << "\nWhat What, in the Butt. Difficulty Please Tron? Yass This In Ping Pong" << endl;
+        do //Loop Till Correct Input for Difficulty Level
         {
-            cout<<"Press: 1 Fur Easy. 2 Fur Medium. 3 Fur Hard xD" << endl;
-            cin>>BadInputVariable;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cin.clear();
+            cout << "Press: 1 Fur Easy. 2 Fur Medium. 3 Fur Hard " << endl;
+            cin>>BitchingFirstMove;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); //discard input
+            cin.clear(); //clear bad input flag
+
         }
-        while (BadInputVariable < 1 || BadInputVariable > 3);
-        Difficulty = BadInputVariable; //Set Difficulty Level For the Game Here on Out.
-        //Setting the PvC Case
-        if (NumberOfPlayers == 1)
+        while (BitchingFirstMove<1 || BitchingFirstMove>3);
+        Difficulty = BitchingFirstMove; //Set Difficulty Level
+        if (NumberOfPlayers==1) //One Human, One Computer
         {
-            int LikelyInputVariable;
-            cout<<"\nWould you like to go first. Program? Yes, this is Tron. Ping Pong."<<endl;
+            int LessThanFirstMove; //Temp Variable to Handle Human Error in Inputs
+            cout << "\nDo you want to go first Mother Fucker?" << endl;
             do
             {
-                cout<<"Press: 0 Fur No. 1 Fur Yass";
-                cin>>LikelyInputVariable;
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cin.clear();
+                cout << "Press: 0 for No. 1 For Yes " << endl;
+                cin>>LessThanFirstMove;
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); //discard input
+                cin.clear(); //clear bad input flag
             }
-            while (LikelyInputVariable < 0 || LikelyInputVariable > 1);
-            WhoGoesFirst = LikelyInputVariable; //Pick who Goes First
+            while (LessThanFirstMove<0 || LessThanFirstMove>1);
+            WhoGoesFirst = LessThanFirstMove; //Pick who Goes First
         }
     }
-    //Draw Board, Initialize With "-" Simple Board, But a Board None the Less.
-    for (int8_t x = 0; x < 6; x++) { for (int8_t y = 0; y < 7; y++) { Board[x][y] = '-'; }}
-    cout<<"\n[&&] Woot Woot! Game Start! [%%]"<<endl;
-    OutPutFile<<"[**] Woot Woot! Game Start! [$$]"<<endl;
-    //Basically means the game is not finished yet
-    while(CharlieSheen == 0)
+    for (int8_t x = 0; x < 6; x++) //Draw Board, Initialize With "-"
     {
-        Creation(cout, Board, 6, 7);
-        Creation(OutPutFile, Board, 6, 7);
-        //^= utilizing XOR, Switch from p1 to p2
-        FullMetal ^= 1;
-        //statement that moves depending on NumberOfPlayers
-        switch(NumberOfPlayers)
+        for (int8_t y = 0; y < 7; y++)
+            board[x][y] = '-';
+    }
+    //Display Start Messages
+    cout<<"\n*** Game Start! ***"<<endl;
+    OutPut<<"*** Game Start! ***"<<endl;
+    while (win==0) //While Game Unfinished
+    {
+        Creation(cout, board, 6, 7); //Draw Board on Screen
+        Creation(OutPut, board, 6, 7); //Draw Board on File
+        FullMetal ^= 1; //XOR With 1, Switch Player from 0 to 1, or Vice Versa, Game Will Start at First Player
+        //Call Move Function Depending on Number of Human Players
+        switch (NumberOfPlayers)
         {
-            case 0: //No HooMan
-                CharlieSheen = Computer(OutPutFile, Difficulty, FullMetal, Board, 6, 7);
+            case 0: //No Humans
+                win = Computer(OutPut, Difficulty, FullMetal, board, 6, 7); //Check for Win
                 break;
-            case 1://1 HooMan
-                if(FullMetal == WhoGoesFirst)
-                    CharlieSheen = Computer(OutPutFile, Difficulty, FullMetal, Board, 6, 7);
-                else
-                    CharlieSheen = Human(OutPutFile, FullMetal, Board, 6, 7);
+            case 1: //One Human
+                if (FullMetal==WhoGoesFirst) //Booleans Match, Computer's Turn
+                    win = Computer(OutPut, Difficulty, FullMetal, board, 6, 7); //Check for Win
+                else //Boolean's Don't Match, Human's Turn
+                    win = Human(OutPut, FullMetal, board, 6, 7); //Check for Win
                 break;
-            case 2: //2 HooMan
-                CharlieSheen = Human(OutPutFile, FullMetal, Board, 6, 7);
+            case 2: //Both Human
+                win = Human(OutPut, FullMetal, board, 6, 7); //Check for Win
                 break;
-            default:
-                CharlieSheen = -1;
+            default: //Shouldn't Happen, but Just in Case
+                win = -1;
                 break;
         }
     }
-    Creation(cout, Board, 6, 7);
-    Creation(OutPutFile, Board, 6, 7);
-    //Statement that determines winning message
-    switch (CharlieSheen)
+    //Print Board Last Time
+    Creation(cout, board,6, 7);
+    Creation(OutPut, board, 6, 7);
+    //Display Message Depending on Game Result
+    switch (win)
     {
-        case -1: //The Player Decided to Quit The Game
-            cout << "\nQuitters Never Prosper\n" << endl;
-            OutPutFile << "\nQuitters Never Prosper\n" << endl;
+        case -1: //Player Chose to Quit
+            cout<<"\nGame Quit\n"<<endl;
+            OutPut<<"\nGame Quit\n"<<endl;
             break;
-        case 1: //The Player Decided to Win the Game
-            cout << "\nPlayer " << (FullMetal + 1) << " Won!!!!\n" << endl;
-            OutPutFile << "\nPlayer " << (FullMetal + 1) << " Won!!!!\n" << endl;
+        case 1: //Game was Won
+            cout<<"\nPlayer "<<(FullMetal+1)<<" wins!"<<endl;
+            OutPut<<"\nPlayer "<<(FullMetal+1)<<" wins!"<<endl;
             break;
-        case 2: //The Player Was So Smart, We just had to Tie The Game. Sometimes not Playing is
-            //The only True way to win. So when masters fight each other, it is always a tie.
-            cout << "\nThe Game Has Ended In a Tie.\n" << endl;
-            OutPutFile << "\nThe Game Has Ended In a Tie.\n" << endl;
+        case 2: //Tie Game
+            cout<<"\nTie Game."<<endl;
+            OutPut<<"\nTie Game."<<endl;
             break;
-        default:
+        default: //Shouldn't Happen, but Just in Case
             break;
     }
-    OutPutFile.close();
+    OutPut.close(); //Close File
     return 0;
 }
-
-//Function That handles Creating the board.
-void Creation(ostream & OutPut, char b[][7], int8_t Rectangles, int8_t Colors)
+// This function prints the board to the indicated ostream object.
+// The values in the board are 'X' for player 1, 'O' (the letter) for player 2, and 
+// the ASCII value of 0 (zero) for an empty space.
+void Creation(ostream & OutPut, char M942[][7], int8_t M249, int8_t M429)
 {
     OutPut << endl;
-    for (int8_t i = 1; i <= Colors; i++) //Display Column Numbers
+    for (int8_t i=1; i<=M429; i++) //Display Column Numbers
         OutPut<<(int) i<<" "; //Display as Integers
     OutPut<<"\n"<<endl;
-    for (int8_t x = Rectangles-1; x >= 0; x--)  //Output Game Board
+    for (int8_t x = M249-1; x >= 0; x--)  //Output Game Board
     {
-        for (int8_t y = 0; y < Colors; y++)
+        for (int8_t y = 0; y < M429; y++)
         {
-            if (b[x][y] == 0)
+            if (M942[x][y] == 0)
                 OutPut << "  ";
             else
-                OutPut << b[x][y] << " ";
+                OutPut << M942[x][y] << " ";
         }
         OutPut << endl;
     }
     OutPut << endl << endl;
-}
-
-//Function that handles the human move
-int8_t Human(ostream & OutPut, bool Steel, char Board[][7], int8_t Rows, int8_t Columns)
+} // end Creation function
+int8_t Human(ostream & OutPut, bool FullMetal, char board[][7], int8_t SplinterCell, int8_t Darkness) //Function to Handle Human Move
 {
-    int AK47; //Col
-    int8_t MP40 = 0; //R 4 Row
-    char GameSymbol;
-    if(Steel == 0)
-        GameSymbol = 'X';
-    else
-        GameSymbol = 'O';
-    cout << "What Column would " << (Steel + 1) << " like to play" << endl;
-    do
+    int RPG; //Playing Column
+    int8_t PGS = 0; //Playing Row, Initialized to Zero
+    char symbol; //Playing Symbol
+    if (FullMetal== 0) //First Player is X
+        symbol = 'X';
+    else //Second is O
+        symbol = 'O';
+
+    cout<<"What column does player "<<(FullMetal+1)<<" want to play?"<<endl;
+    do //Loop Till Valid Input
     {
-        cout << "Press '0' to quit, or Select Columns '1-7'" << endl;
-        cin >> AK47;
-    }while(AK47 < 0 || AK47 > 7);
-    if(AK47 == 0)
+        cout<<"(1-7, or 0 to Quit)"<<endl;
+        cin>>RPG;
+    }
+    while (RPG<0 || RPG>7);
+    if (RPG==0) //Return If Player Chose to Quit
         return -1;
-    AK47 -= 1;
-    //If a column has already been filled, select again
-    if(Board[MP40][AK47] != '-')
+
+    RPG-= 1; //To Adjust for Zero-Indexing
+    if (board[SplinterCell-1][RPG] != '-') //Display if Row is Filled, Select Again
     {
-        cout << "\nThat Column has already been Filled.\n" << endl;
-        return Human(OutPut, Steel, Board, Rows, Columns);
+        cout<<"\nThat column is filled.\n"<<endl;
+        return Human(OutPut, FullMetal, board, SplinterCell, Darkness); //Call Function Again
     }
-    //Loop Until there is an open space in the board
-    while(Board[MP40][AK47] != '-' && MP40<Rows)
-        MP40++;
-    Board[MP40][AK47] = GameSymbol;
-    cout<<"\nPlayer "<<(Steel + 1)<<" plays in column "<<(AK47 + 1)<<endl; //Display Play Message
-    OutPut<<"Player "<<(Steel + 1)<<" plays in column "<<(AK47 + 1)<<endl; //Outfile Play Message
-    //Check for a winning condition..
-    if(Vertical(Board, Rows, Columns, MP40, AK47) || Horizontal(Board, Rows, Columns, MP40, AK47) || Diagonal(Board, Rows, Columns, MP40, AK47))
+    while (board[PGS][RPG] != '-' && PGS<SplinterCell) //Loop Till Open Space in Column Found
+        PGS++;
+    board[PGS][RPG] = symbol; //Play Piece
+    cout<<"\nPlayer "<<(FullMetal+1)<<" plays in column "<<(RPG+1)<<endl; //Display Play Message
+    OutPut<<"Player "<<(FullMetal+1)<<" plays in column "<<(RPG+1)<<endl; //OutPut Play Message
+    if (Vertical(board, SplinterCell, Darkness, PGS, RPG) || Horizontal(board, SplinterCell, Darkness, PGS, RPG) || Diagonal(board, SplinterCell, Darkness, PGS, RPG))
         return 1;
-    if(TieGame(Board, Rows, Columns))
+    if (Tie(board, SplinterCell, Darkness)) //Check for Tie Game
         return 2;
     return 0;
 }
-
-//Function that handles the Computer Move
-int8_t Computer(ostream & OutPut, int8_t Difficulty, bool FullMetal, char Board[][7], int8_t Rows, int8_t Columns) //This Function Handles the Dumb Computer Move
+int8_t Computer(ostream & OutPut, int8_t Difficulty, bool FullMetal, char board[][7], int8_t SplinterCell, int8_t Darkness) //This Function Handles the Dumb Computer Move
 {
-    int8_t AK47 = -1; //cols
-    int8_t MP40 = 0; //rows
-    int8_t * M16; //Holding computer loss
-    char GameSymbol;
-    if(FullMetal == 0)
-        GameSymbol = 'X';
-    else
-        GameSymbol = 'O';
-    M16 = CheckTehMoves(GameSymbol, Board, Rows, Columns);
-    //Basically means as long as the User chooses a Valid Difficulty, And then Determines the Difficulty
-    if(Difficulty > 1)
+    int8_t M16 = -1; //Playing Column, Initialized to -1
+    int8_t r = 0; //Playing Row, Initialized to Zero
+    int8_t * moves; //Pointer to Hold Potential Computer Loss Columns
+    char symbol; //Playing Symbol
+    if (FullMetal== 0) //First Player is X
+        symbol = 'X';
+    else //Second is O
+        symbol = 'O';
+    moves = CheckTehMoves(symbol, board, SplinterCell, Darkness); //Check If Any Move Will Setup Human Win
+    if (Difficulty>1) //Difficulty Level is More Than 1
     {
-        if(Difficulty == 3 && Board[0][3] == '-')//Highest Difficulty
-            AK47 = 3;
-        if(AK47 == -1)
-            AK47 = CheckTehBoard(GameSymbol, Board, Rows, Columns);
-        if(AK47 == -1)
+        if (Difficulty==3 && board[0][3]=='-') //Max Difficulty
+            M16 = 3; //Play Center Column If Bottom Space Open, Necessary to Assure Victory
+        if (M16==-1) //Space Already Filled
+            M16 = CheckTehBoardz(symbol, board, SplinterCell, Darkness); //Check If Computer can Win
+        if (M16==-1) //No Winning Move for Computer
         {
-            char TemporaryShit = 'X';
-            if(FullMetal == 0)
+            char TemporaryShit = 'X'; //Temporary Variable for Symbol
+            if (FullMetal==0) //Set to Opposite Player Symbol
                 TemporaryShit = 'O';
-            AK47 = CheckTehBoard(TemporaryShit, Board, Rows, Columns);
+            M16 = CheckTehBoardz(TemporaryShit, board, SplinterCell, Darkness); //Check If Human Will Win Unless Blocked
         }
-        if(AK47 == -1 && Difficulty == 3)
+        if (M16==-1 && Difficulty==3) //Max Difficulty, Move Not Decided Yet
         {
-            M16 = CheckTehMoves(GameSymbol, Board, Rows, Columns);
-            do
-                AK47 = rand()%7;
-            while(Board[Rows-1][AK47] != '-' || M16[AK47] != 0);
+            moves = CheckTehMoves(symbol, board, SplinterCell, Darkness); //Check If Any Move Will Setup Human Win
+            do //Choose Random Number, but Make Sure it Won't Result in Human Win
+                M16=rand()%7;
+            while (board[SplinterCell-1][M16] != '-' || moves[M16]!=0);
         }
     }
-    for(int i = 0; i < Columns; i++)
-        cout << (int)M16[i] << " ";
-    cout << endl;
-    if(AK47 == 1)
+    for (int i=0; i<Darkness; i++)
+        cout<<(int)moves[i]<<" ";
+    cout<<endl;
+    if (M16==-1)
     {
+        //Create Random Number from 0-6, Loop Till Acceptable Input
         do
-            AK47 = rand()%7;
-        while(Board[Rows-1][AK47] != '-');
+            M16=rand()%7;
+        while (board[SplinterCell-1][M16] != '-');
     }
-    while(Board[MP40][AK47] != '-' && MP40 < Rows)
-        MP40++;
-    Board[MP40][AK47] = GameSymbol; //PLAY PIECE
-    cout<<"\nComputer Player "<<(FullMetal+1)<<" plays in column "<<(AK47+1)<<endl; //Display Play Message
-    OutPut<<"Computer Player "<<(FullMetal+1)<<" plays in column "<<(AK47+1)<<endl; //Outfile Play Message
-    if(Vertical(Board, Rows, Columns, MP40, AK47) || Horizontal(Board, Rows, Columns, MP40, AK47) || Diagonal(Board, Rows, Columns, MP40, AK47))
+    while (board[r][M16] != '-' && r<SplinterCell) //Loop Till Open Space in Column Found
+        r++;
+    board[r][M16] = symbol; //Play Piece
+    cout<<"\nComputer Player "<<(FullMetal+1)<<" plays in column "<<(M16+1)<<endl; //Display Play Message
+    OutPut<<"Computer Player "<<(FullMetal+1)<<" plays in column "<<(M16+1)<<endl; //OutPut Play Message
+    if (Vertical(board, SplinterCell, Darkness, r, M16) || Horizontal(board, SplinterCell, Darkness, r, M16) || Diagonal(board, SplinterCell, Darkness, r, M16))
         return 1;
-    if(TieGame(Board, Rows, Columns))
+    if (Tie(board, SplinterCell, Darkness)) //Check for Tie Game
         return 2;
     return 0;
 }
-
-//Function that handles a Vertical Win
-bool Vertical(char Board[][7], int8_t M249, int8_t Count, int8_t MoveRow, int8_t MoveColumn)
+bool Vertical(char board[][7], int8_t SplinterCell, int8_t Darkness, int8_t AK47, int8_t AK74) //Funtion That Checks for Vertical Win
 {
-    Count = 1; //Hold Count of Consecutive Pieces Vertically
-    M249; //To Traverse Array to Check Pieces
-
-    if (MoveRow>=3) //No Point in Checking if not High Enough
+    int8_t Chimpanzee = 1; //Hold Count of Consecutive Pieces Vertically
+    int8_t Rectangles; //To Traverse Array to Check Pieces
+    if (AK47>=3) //No Point in Checking if not High Enough
     {
-        M249 = MoveRow+1; //Intialize Traverse Variable
-        while (Board[MoveRow][MoveColumn] == Board[M249][MoveColumn] && M249>=0 && Count<5) //Loop Till Not Matching or Enough Pieces
+        Rectangles = AK47-1; //Intialize Traverse Variable
+        while (board[AK47][AK74] == board[Rectangles][AK74] && Rectangles>=0 && Chimpanzee<5) //Loop Till Not Matching or Enough Pieces
         {
-            Count++; //Increment Count
-            M249--; //Check Row Below
+            Chimpanzee++; //Increment Count
+            Rectangles--; //Check Row Below
         }
-        if (Count>=4) //If Enough Consecutive Pieces
+        if (Chimpanzee>=4) //If Enough Consecutive Pieces
             return true;
     }
     return false; //Default, Return False
 }
-//Function that handles a Horizontal Win
-bool Horizontal(char Board[][7], int8_t Rows, int8_t Columns, int8_t MoveRow, int8_t MoveColumn)
+bool Horizontal(char board[][7], int8_t SplinterCell, int8_t Darkness, int8_t AK47, int8_t AK74) //Funtion That Checks for Horizontal Win
 {
-    int8_t Count = 1; //Keep Count of Consecutive Pieces
-    int8_t Check = MoveColumn-1; //To Traverse Array to Check Pieces
-    while (Board[MoveRow][MoveColumn] == Board[MoveRow][Check] && Check>=0 && Count<5) //Count Consecutive Pieces to the Left Till Not Matching or Enough Pieces
+    int8_t Chimpanzee = 1; //Keep Count of Consecutive Pieces
+    int8_t Scarface = AK74-1; //To Traverse Array to Check Pieces
+    while (board[AK47][AK74] == board[AK47][Scarface] && Scarface>=0 && Chimpanzee<5) //Count Consecutive Pieces to the Left Till Not Matching or Enough Pieces
     {
-        Count++; //Increment Count
-        Check--; //Check Column Before
+        Chimpanzee++; //Increment Count
+        Scarface--; //Check Column Before
     }
-    Check = MoveColumn + 1; //Reinitialize c
-    while (Board[MoveRow][MoveColumn] == Board[MoveRow][Check] && Check<Columns && Count<5) //Count Consecutive Pieces to the Right Till Not Matching or Enough Pieces
+    Scarface = AK74+1; //Reinitialize c
+    while (board[AK47][AK74] == board[AK47][Scarface] && Scarface<Darkness && Chimpanzee<5) //Count Consecutive Pieces to the Right Till Not Matching or Enough Pieces
     {
-        Count++; //Increment Count
-        Check++; //Check Column After
+        Chimpanzee++; //Increment Count
+        Scarface++; //Check Column After
     }
-    if (Count>=4) //If Enough Consecutive Pieces
+    if (Chimpanzee>=4) //If Enough Consecutive Pieces
         return true;
     return false; //Default Return False
 }
-//Function that handles a Diagonal Win
-bool Diagonal(char Board[][7], int8_t Rows, int8_t Columns, int8_t MoveRow, int8_t MoveColumn)
+bool Diagonal(char board[][7], int8_t SplinterCell, int8_t Darkness, int8_t AK47, int8_t AK74) //Funtion That Checks for Diagonal Win
 {
-    int8_t Count = 1; //Keep Count of Consecutive Pieces
-    int8_t MP40 = MoveRow-1; //To Traverse Rows to Check Pieces
-    int8_t AK47 = MoveColumn-1; //To Traverse Columns to Check Pieces
-    while (Board[MoveRow][MoveColumn] == Board[MP40][AK47] && MP40>=0 && AK47>=0 && Count<5) //Count Consecutive Pieces to the Down-Left
+    int8_t Chimpanzee = 1; //Keep Count of Consecutive Pieces
+    int8_t TSoprano = AK47 - 1; //To Traverse Rows to Check Pieces
+    int8_t Scarface = AK74 - 1; //To Traverse Columns to Check Pieces
+    while (board[AK47][AK74] == board[TSoprano][Scarface] && TSoprano >= 0 && Scarface >= 0 && Chimpanzee < 5) //Count Consecutive Pieces to the Down-Left
     {
-        Count++; //Increment Count
-        MP40--; //Check Row Below
-        AK47--; //Check Column Before
+        Chimpanzee++; //Increment Count
+        TSoprano--; //Check Row Below
+        Scarface--; //Check Column Before
     }
-    MP40 = MoveRow+1; //Reinitialize to Row Above
-    AK47 = MoveColumn+1; //Reinitialize to Column After
-    while (Board[MoveRow][MoveColumn] == Board[MP40][AK47] && MP40<Rows && AK47<Columns && Count<5) //Count Consecutive Pieces to the Up-Right
+    TSoprano = AK47 + 1; //Reinitialize to Row Above
+    Scarface = AK74 + 1; //Reinitialize to Column After
+    while (board[AK47][AK74] == board[TSoprano][Scarface] && TSoprano < SplinterCell && Scarface < Darkness && Chimpanzee < 5) //Count Consecutive Pieces to the Up-Right
     {
-        Count++; //Increment Count
-        MP40++; //Check Row Below
-        AK47++; //Check Column Before
+        Chimpanzee++; //Increment Count
+        TSoprano++; //Check Row Below
+        Scarface++; //Check Column Before
     }
-    if (Count>=4) //If Enough Consecutive Pieces
+    if (Chimpanzee >= 4) //If Enough Consecutive Pieces
         return true;
-    Count = 1; //Reset Count
-    MP40 = MoveRow+1; //Reinitialize to Row Above
-    AK47 = MoveColumn-1; //Reinitialize to Column Before
-    while (Board[MoveRow][MoveColumn] == Board[MP40][AK47] && MP40<Rows && AK47>=0 && Count<5) //Count Consecutive Pieces to the Up-Left
+    Chimpanzee = 1; //Reset Count
+    TSoprano = AK47 + 1; //Reinitialize to Row Above
+    Scarface = AK74 - 1; //Reinitialize to Column Before
+    while (board[AK47][AK74] == board[TSoprano][Scarface] && TSoprano < SplinterCell && Scarface >= 0 && Chimpanzee < 5) //Count Consecutive Pieces to the Up-Left
     {
-        Count++; //Increment Count
-        MP40++; //Check Row Below
-        AK47--; //Check Column Before
+        Chimpanzee++; //Increment Count
+        TSoprano++; //Check Row Below
+        Scarface--; //Check Column Before
     }
-    MP40 = MoveRow-1; //Reinitialize to Row Below
-    AK47 = MoveColumn+1; //Reinitialize to Column After
-    while (Board[MoveRow][MoveColumn] == Board[MP40][AK47] && MP40>=0 && AK47<Columns && Count<5) //Count Consecutive Pieces to the Down-Right
+    TSoprano = AK47 - 1; //Reinitialize to Row Below
+    Scarface = AK74 + 1; //Reinitialize to Column After
+    while (board[AK47][AK74] == board[TSoprano][Scarface] && TSoprano >= 0 && Scarface < Darkness &&
+           Chimpanzee < 5) //Count Consecutive Pieces to the Down-Right
     {
-        Count++; //Increment Count
-        MP40--; //Check Row Below
-        AK47++; //Check Column Before
+        Chimpanzee++; //Increment Count
+        TSoprano--; //Check Row Below
+        Scarface++; //Check Column Before
     }
-    if (Count>=4) //If Enough Consecutive Pieces
+    if (Chimpanzee >= 4) //If Enough Consecutive Pieces
         return true;
     return 0;
 }
-//Function that hadles a TieGame
-bool TieGame(char Board[][7], int8_t Rows, int8_t Columns)
+bool Tie(char board[][7], int8_t SplinterCell, int8_t Darkness) //Function That Checks for Tie Game
 {
     int8_t i = 0; //To Traverse Top Row
-    while (Board[Rows-1][i] != '-') //Traverse Top Row
+    while (board[SplinterCell-1][i] != '-') //Traverse Top Row
         i++;
-    if (i>=Columns) //If Filled Row, Draw Game
+    if (i>=Darkness) //If Filled Row, Tie Game
         return true;
     return false; //If Not, Return False
 }
-//Function that Checks Teh Board for a win or a loss
-int8_t CheckTehBoard(char GameSymbol, char Board[][7], int8_t Rows, int8_t Columns)
+int8_t CheckTehBoardz(char symbol, char board[][7], int8_t SplinterCell, int8_t Darkness) //Function for Computer to Check for Win or Loss
 {
-    int8_t MP40; //Playing Row
-    int8_t AK47 = 0; //Playing Column
-
-    for (AK47; AK47<Columns; AK47++) //Check Each Column
+    int8_t TSoprano; //Playing Row
+    int8_t Scarface = 0; //Playing Column
+    for (Scarface; Scarface<Darkness; Scarface++) //Check Each Column
     {
-        if (Board[Rows-1][AK47] !='-') //Column is Filled, No Point in Checking
+        if (board[SplinterCell-1][Scarface] !='-') //Column is Filled, No Point in Checking
             continue;
-        MP40 = 0; //Initialize Row
-        while (Board[MP40][AK47] != '-' && MP40<Rows) //Loop Till Open Space in Column Found
-            MP40++;
-        Board[MP40][AK47] = GameSymbol; //Place Piece
-        if(Vertical(Board, Rows, Columns, MP40, AK47) || Horizontal(Board, Rows, Columns, MP40, AK47) || Diagonal(Board, Rows, Columns, MP40, AK47))
+        TSoprano = 0; //Initialize Row
+        while (board[TSoprano][Scarface] != '-' && TSoprano<SplinterCell) //Loop Till Open Space in Column Found
+            TSoprano++;
+        board[TSoprano][Scarface] = symbol; //Place Piece
+        if (Vertical(board, SplinterCell, Darkness, TSoprano, Scarface) || Horizontal(board, SplinterCell, Darkness, TSoprano, Scarface) || Diagonal(board, SplinterCell, Darkness, TSoprano, Scarface))
         {
-            Board[MP40][AK47] = '-'; //Empty Spot
-            return AK47; //Return Column Number
+            board[TSoprano][Scarface] = '-'; //Empty Spot
+            return Scarface; //Return Column Number
         }
-        Board[MP40][AK47] = '-'; //Empty Spot
+        board[TSoprano][Scarface] = '-'; //Empty Spot
     }
     return -1; //Return -1 on Default
 }
-//Function that Checks Teh Moves to allow a Human to win
-int8_t * CheckTehMoves(char GameSymbol, char Board[][7], int8_t Rows, int8_t Columns)
+
+int8_t * CheckTehMoves(char symbol, char board[][7], int8_t SplinterCell, int8_t Darkness) //Function to Check if Computer Move Will Allow Human to Win
 {
-    ///*static*/ bool moves[columns]; //Keep Track of Columns, Results in Size of moves "Not Being Constant"
+    ///*static*/ bool moves[Darkness]; //Keep Track of Columns, Results in Size of moves "Not Being Constant"
     static int8_t moves[7]; //Keep Track of Columns
-    char tmp = 'X'; //Human Player Symbol
+    char TemporaryShit = 'X'; //Human Player Symbol
     bool zero = false; //See if moves Contains A Zero, Initialize to False
-    int8_t r; //Playing Row
-    int8_t c = 0; //Playing Column
+    int8_t TSoprano; //Playing Row
+    int8_t Scarface = 0; //Playing Column
     fill_n(moves, 7, 0); //Reset moves
-    for (c; c<Columns; c++) //Check Each Column
+    for (Scarface; Scarface<Darkness; Scarface++) //Check Each Column
     {
-        if (Board[Rows-2][c] !='-') //Column Has Only Top Spot or Filled, No Point in Checking
+        if (board[SplinterCell-2][Scarface] !='-') //Column Has Only Top Spot or Filled, No Point in Checking
         {
-            if (Board[Rows-1][c] !='-') //If Column Filled
-                moves[c] = 1; //Still Mark as Not Playable
+            if (board[SplinterCell-1][Scarface] !='-') //If Column Filled
+                moves[Scarface] = 1; //Still Mark as Not Playable
             continue; //Goto Next Interation of for Loop
         }
-        r = 0; //Initialize Row
-        while (Board[r][c] != '-' && r<Rows-1) //Loop Till Open Space in Column Found
-            r++;
-        Board[r][c] = GameSymbol; //Place Piece
-        Board[++r][c] = GameSymbol; //Inrement r, Place Piece in Row Above
-        if(Horizontal(Board, Rows, Columns, r, c) || Diagonal(Board, Rows, Columns, r, c))
-            moves[c] = 2; //Mark in Array As Desired Opponent Move (Hold of if Possible)
-        if(GameSymbol=='X') //If Computer was Player 1, Switch Symbol
-            tmp = 'O';
-        Board[r][c] = tmp; //Place Opposite Piece
-        if(Horizontal(Board, Rows, Columns, r, c) || Diagonal(Board, Rows, Columns, r, c))
-            moves[c] = 1; //Mark in Array
-        Board[r][c] = '-'; //Replace Piece
-        Board[r-1][c] = '-'; //Replace Piece Under
+        TSoprano = 0; //Initialize Row
+        while (board[TSoprano][Scarface] != '-' && TSoprano<SplinterCell-1) //Loop Till Open Space in Column Found
+            TSoprano++;
+        board[TSoprano][Scarface] = symbol; //Place Piece
+        board[++TSoprano][Scarface] = symbol; //Increment r, Place Piece in Row Above
+        if (Horizontal(board, SplinterCell, Darkness, TSoprano, Scarface) || Diagonal(board, SplinterCell, Darkness, TSoprano, Scarface))
+            moves[Scarface] = 2; //Mark in Array As Desired Opponent Move (Hold of if Possible)
+        if (symbol=='X') //If Computer was Player 1, Switch Symbol
+            TemporaryShit = 'O';
+        board[TSoprano][Scarface] = TemporaryShit; //Place Opposite Piece
+        if (Horizontal(board, SplinterCell, Darkness, TSoprano, Scarface) || Diagonal(board, SplinterCell, Darkness, TSoprano, Scarface))
+            moves[Scarface] = 1; //Mark in Array
+        board[TSoprano][Scarface] = '-'; //Replace Piece
+        board[TSoprano-1][Scarface] = '-'; //Replace Piece Under
     }
-    for (c=0; c<Columns; c++)
+    for (Scarface=0; Scarface<Darkness; Scarface++)
     {
-        if (moves[c]==0)
+        if (moves[Scarface]==0)
         {
             zero = true;
             break;
@@ -416,11 +402,11 @@ int8_t * CheckTehMoves(char GameSymbol, char Board[][7], int8_t Rows, int8_t Col
     }
     if (zero) //If No Desirable Moves
     {
-        for (c=0; c<Columns; c++) //Loop Through Moves
+        for (Scarface=0; Scarface<Darkness; Scarface++) //Loop Through Moves
         {
-            if (moves[c]==2) //Replace First Located Preferred Opponent Move With Zero
+            if (moves[Scarface]==2) //Replace First Located Preferred Opponent Move With Zero
             {
-                moves[c] = 0;
+                moves[Scarface] = 0;
                 zero = true;
                 break;
             }
@@ -428,24 +414,29 @@ int8_t * CheckTehMoves(char GameSymbol, char Board[][7], int8_t Rows, int8_t Col
     }
     if (zero) //If Any Possible Move Results in Human Win (Moves Had All 1s)
         fill_n(moves, 7, 0); //Reset moves, Doesn't Matter
-    for (int i=0; i<Columns; i++)
-    cout<<moves[i]<<" ";
+    for (int i=0; i<Darkness; i++)
+        cout<<moves[i]<<" ";
     cout<<endl;
     return moves;
 }
-/*
- * /Users/Alex/CLionProjects/ConnectFur/cmake-build-debug/ConnectFur
-Welcome to the not so simple game of connect fur.
-How many players will be playing today??
-Please Enter an Integer Value Between 0 and 2.
-0 is CvC. 1 is PvC. 2 is PvP
-0
 
-Please Select The Difficulty of the Computer.
-Press: 1 Fur Easy. 2 Fur Medium. 3 Fur Hard xD
+/*
+ * Possible Win Condition For Player
+ *  /Users/Alex/CLionProjects/ConnectFur/cmake-build-debug/ConnectFur
+Welcome to the Connect Four Game
+How many players will there be?
+Press: 0 For CvC, 1 For PvC, or 2 For PvP
+1
+
+What What, in the Butt. Difficulty Please Tron? Yass This In Ping Pong
+Press: 1 Fur Easy. 2 Fur Medium. 3 Fur Hard
 3
 
-[&&] Woot Woot! Game Start! [%%]
+Do you want to go first Mother Fucker?
+Press: 0 for No. 1 For Yes
+0
+
+*** Game Start! ***
 
 1 2 3 4 5 6 7
 
@@ -472,27 +463,11 @@ Computer Player 1 plays in column 4
 - - - X - - -
 
 
-             
-             
-0 0 0 0 0 0 0
+What column does player 2 want to play?
+(1-7, or 0 to Quit)
+7
 
-Computer Player 2 plays in column 5
-
-1 2 3 4 5 6 7
-
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - X O - -
-
-
-             
-             
-0 0 0 0 0 0 0
-
-Computer Player 1 plays in column 7
+Player 2 plays in column 7
 
 1 2 3 4 5 6 7
 
@@ -501,246 +476,7 @@ Computer Player 1 plays in column 7
 - - - - - - -
 - - - - - - -
 - - - - - - -
-- - - X O - X
-
-
-             
-             
-0 0 0 0 0 0 0
-
-Computer Player 2 plays in column 6
-
-1 2 3 4 5 6 7
-
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - X O O X
-
-
-             
-             
-0 0 0 0 0 0 0
-
-Computer Player 1 plays in column 3
-
-1 2 3 4 5 6 7
-
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - X X O O X
-
-
-             
-             
-0 0 0 0 0 0 0
-
-Computer Player 2 plays in column 7
-
-1 2 3 4 5 6 7
-
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - - - - O
-- - X X O O X
-
-
-             
-             
-0 0 0 0 0 0 0
-
-Computer Player 1 plays in column 6
-
-1 2 3 4 5 6 7
-
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - - - X O
-- - X X O O X
-
-
-             
-             
-0 0 0 0 0 0 0
-
-Computer Player 2 plays in column 4
-
-1 2 3 4 5 6 7
-
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - O - X O
-- - X X O O X
-
-
-             
-             
-0 0 0 0 0 0 0
-
-Computer Player 1 plays in column 6
-
-1 2 3 4 5 6 7
-
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - - - X -
-- - - O - X O
-- - X X O O X
-
-
-             
-             
-0 0 0 0 0 0 0
-
-Computer Player 2 plays in column 3
-
-1 2 3 4 5 6 7
-
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - - - X -
-- - O O - X O
-- - X X O O X
-
-
-             
-             
-0 0 0 0 0 0 0
-
-Computer Player 1 plays in column 4
-
-1 2 3 4 5 6 7
-
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - X - X -
-- - O O - X O
-- - X X O O X
-
-
-             
-             
-0 0 0 0 0 0 0
-
-Computer Player 2 plays in column 5
-
-1 2 3 4 5 6 7
-
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - X - X -
-- - O O O X O
-- - X X O O X
-
-
-             
-             
-0 0 0 0 0 0 0
-
-Computer Player 1 plays in column 7
-
-1 2 3 4 5 6 7
-
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - X - X X
-- - O O O X O
-- - X X O O X
-
-
-             
-0 0 0 0 0 0 0
-
-Computer Player 2 plays in column 5
-
-1 2 3 4 5 6 7
-
-- - - - - - -
-- - - - - - -
-- - - - - - -
-- - - X O X X
-- - O O O X O
-- - X X O O X
-
-
-             
-             
-0 0 0 0 0 0 0
-
-Computer Player 1 plays in column 7
-
-1 2 3 4 5 6 7
-
-- - - - - - -
-- - - - - - -
-- - - - - - X
-- - - X O X X
-- - O O O X O
-- - X X O O X
-
-
-             
-             
-0 0 0 0 0 0 0
-
-Computer Player 2 plays in column 3
-
-1 2 3 4 5 6 7
-
-- - - - - - -
-- - - - - - -
-- - - - - - X
-- - O X O X X
-- - O O O X O
-- - X X O O X
-
-
-             
-             
-0 0 0 0 0 0 0
-
-Computer Player 1 plays in column 7
-
-1 2 3 4 5 6 7
-
-- - - - - - -
-- - - - - - X
-- - - - - - X
-- - O X O X X
-- - O O O X O
-- - X X O O X
-
-
-             
-             
-0 0 0 0 0 0 0
-
-Computer Player 2 plays in column 5
-
-1 2 3 4 5 6 7
-
-- - - - - - -
-- - - - - - X
-- - - - O - X
-- - O X O X X
-- - O O O X O
-- - X X O O X
+- - - X - - O
 
 
              
@@ -752,93 +488,158 @@ Computer Player 1 plays in column 5
 1 2 3 4 5 6 7
 
 - - - - - - -
-- - - - X - X
-- - - - O - X
-- - O X O X X
-- - O O O X O
-- - X X O O X
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - - X X - O
+
+
+What column does player 2 want to play?
+(1-7, or 0 to Quit)
+3
+
+Player 2 plays in column 3
+
+1 2 3 4 5 6 7
+
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - O X X - O
 
 
              
              
 0 0 0 0 0 0 0
 
-Computer Player 2 plays in column 7
+Computer Player 1 plays in column 2
 
 1 2 3 4 5 6 7
 
-- - - - - - O
-- - - - X - X
-- - - - O - X
-- - O X O X X
-- - O O O X O
-- - X X O O X
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- X O X X - O
+
+
+What column does player 2 want to play?
+(1-7, or 0 to Quit)
+3
+
+Player 2 plays in column 3
+
+1 2 3 4 5 6 7
+
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - O - - - -
+- X O X X - O
 
 
              
              
 0 0 0 0 0 0 0
 
-Computer Player 1 plays in column 6
+Computer Player 1 plays in column 7
 
 1 2 3 4 5 6 7
 
-- - - - - - O
-- - - - X - X
-- - - - O X X
-- - O X O X X
-- - O O O X O
-- - X X O O X
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - O - - - X
+- X O X X - O
+
+
+What column does player 2 want to play?
+(1-7, or 0 to Quit)
+6
+
+Player 2 plays in column 6
+
+1 2 3 4 5 6 7
+
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - O - - - X
+- X O X X O O
 
 
              
              
 0 0 0 0 0 0 0
 
-Computer Player 2 plays in column 5
+Computer Player 1 plays in column 1
 
 1 2 3 4 5 6 7
 
-- - - - O - O
-- - - - X - X
-- - - - O X X
-- - O X O X X
-- - O O O X O
-- - X X O O X
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - O - - - X
+X X O X X O O
+
+
+What column does player 2 want to play?
+(1-7, or 0 to Quit)
+5
+
+Player 2 plays in column 5
+
+1 2 3 4 5 6 7
+
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - O - O - X
+X X O X X O O
 
 
              
              
 0 0 0 0 0 0 0
 
-Computer Player 1 plays in column 6
+Computer Player 1 plays in column 2
 
 1 2 3 4 5 6 7
 
-- - - - O - O
-- - - - X X X
-- - - - O X X
-- - O X O X X
-- - O O O X O
-- - X X O O X
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- X O - O - X
+X X O X X O O
 
 
-             
-             
-0 0 0 0 0 0 0
+What column does player 2 want to play?
+(1-7, or 0 to Quit)
+2
 
-Computer Player 2 plays in column 4
+Player 2 plays in column 2
 
 1 2 3 4 5 6 7
 
-- - - - O - O
-- - - - X X X
-- - - O O X X
-- - O X O X X
-- - O O O X O
-- - X X O O X
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- O - - - - -
+- X O - O - X
+X X O X X O O
 
 
+             
              
 0 0 0 0 0 0 0
 
@@ -846,15 +647,93 @@ Computer Player 1 plays in column 4
 
 1 2 3 4 5 6 7
 
-- - - - O - O
-- - - X X X X
-- - - O O X X
-- - O X O X X
-- - O O O X O
-- - X X O O X
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- O - - - - -
+- X O X O - X
+X X O X X O O
+
+
+What column does player 2 want to play?
+(1-7, or 0 to Quit)
+4
+
+Player 2 plays in column 4
+
+1 2 3 4 5 6 7
+
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- O - O - - -
+- X O X O - X
+X X O X X O O
+
+
+             
+             
+0 0 0 0 0 0 0
+
+Computer Player 1 plays in column 1
+
+1 2 3 4 5 6 7
+
+- - - - - - -
+- - - - - - -
+- - - - - - -
+- O - O - - -
+X X O X O - X
+X X O X X O O
+
+
+What column does player 2 want to play?
+(1-7, or 0 to Quit)
+1
+
+Player 2 plays in column 1
+
+1 2 3 4 5 6 7
+
+- - - - - - -
+- - - - - - -
+- - - - - - -
+O O - O - - -
+X X O X O - X
+X X O X X O O
+
+
+             
+0 0 0 0 0 0 0
+
+Computer Player 1 plays in column 3
+
+1 2 3 4 5 6 7
+
+- - - - - - -
+- - - - - - -
+- - - - - - -
+O O X O - - -
+X X O X O - X
+X X O X X O O
+
+
+What column does player 2 want to play?
+(1-7, or 0 to Quit)
+3
+
+Player 2 plays in column 3
+
+1 2 3 4 5 6 7
+
+- - - - - - -
+- - - - - - -
+- - O - - - -
+O O X O - - -
+X X O X O - X
+X X O X X O O
 
 
 
-Player 1 Won!!!!
-
+Player 2 wins!
  */
