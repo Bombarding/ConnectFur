@@ -42,7 +42,6 @@ int main()
     char Board [6][7] = {0}; //Filling the game board
     ofstream OutPutFile; //Prints results to specified File
     OutPutFile.open("GameLog.txt");
-
     //Creating a menu for the game
     cout << "Welcome to the not so simple game of connect fur." << endl;
     cout << "How many players will be playing today??" << endl;
@@ -55,7 +54,6 @@ int main()
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cin.clear();
     }while(NumberOfPlayers < 0 || NumberOfPlayers > 2);
-
     //Starting the game if User selects a valid player Count
     if(NumberOfPlayers < 2)
     {
@@ -90,16 +88,9 @@ int main()
         }
     }
     //Draw Board, Initialize With "-" Simple Board, But a Board None the Less.
-    for (int8_t x = 0; x < 6; x++)
-    {
-        for (int8_t y = 0; y < 7; y++)
-        {
-            Board[x][y] = '-';
-        }
-    }
+    for (int8_t x = 0; x < 6; x++) { for (int8_t y = 0; y < 7; y++) { Board[x][y] = '-'; }}
     cout<<"\n[&&] Woot Woot! Game Start! [%%]"<<endl;
     OutPutFile<<"[**] Woot Woot! Game Start! [$$]"<<endl;
-
     //Basically means the game is not finished yet
     while(CharlieSheen == 0)
     {
@@ -129,7 +120,6 @@ int main()
     }
     Creation(cout, Board, 6, 7);
     Creation(OutPutFile, Board, 6, 7);
-
     //Statement that determines winning message
     switch (CharlieSheen)
     {
@@ -154,29 +144,28 @@ int main()
 }
 
 //Function That handles Creating the board.
-void Creation(ostream & out, char b[][7], int8_t Rectangles, int8_t Colors)
+void Creation(ostream & OutPut, char b[][7], int8_t Rectangles, int8_t Colors)
 {
-    out << endl;
-
+    OutPut << endl;
     for (int8_t i = 1; i <= Colors; i++) //Display Column Numbers
-        out<<(int) i<<" "; //Display as Integers
-    out<<"\n"<<endl;
+        OutPut<<(int) i<<" "; //Display as Integers
+    OutPut<<"\n"<<endl;
     for (int8_t x = Rectangles-1; x >= 0; x--)  //Output Game Board
     {
         for (int8_t y = 0; y < Colors; y++)
         {
             if (b[x][y] == 0)
-                out << "  ";
+                OutPut << "  ";
             else
-                out << b[x][y] << " ";
+                OutPut << b[x][y] << " ";
         }
-        out << endl;
+        OutPut << endl;
     }
-    out << endl << endl;
+    OutPut << endl << endl;
 }
 
 //Function that handles the human move
-int8_t Human(ostream & out, bool Steel, char Board[][7], int8_t Rows, int8_t Columns)
+int8_t Human(ostream & OutPut, bool Steel, char Board[][7], int8_t Rows, int8_t Columns)
 {
     int AK47; //Col
     int8_t MP40 = 0; //R 4 Row
@@ -198,15 +187,14 @@ int8_t Human(ostream & out, bool Steel, char Board[][7], int8_t Rows, int8_t Col
     if(Board[MP40][AK47] != '-')
     {
         cout << "\nThat Column has already been Filled.\n" << endl;
-        return Human(out, Steel, Board, Rows, Columns);
+        return Human(OutPut, Steel, Board, Rows, Columns);
     }
     //Loop Until there is an open space in the board
     while(Board[MP40][AK47] != '-' && MP40<Rows)
         MP40++;
     Board[MP40][AK47] = GameSymbol;
     cout<<"\nPlayer "<<(Steel + 1)<<" plays in column "<<(AK47 + 1)<<endl; //Display Play Message
-    out<<"Player "<<(Steel + 1)<<" plays in column "<<(AK47 + 1)<<endl; //Outfile Play Message
-
+    OutPut<<"Player "<<(Steel + 1)<<" plays in column "<<(AK47 + 1)<<endl; //Outfile Play Message
     //Check for a winning condition..
     if(Vertical(Board, Rows, Columns, MP40, AK47) || Horizontal(Board, Rows, Columns, MP40, AK47) || Diagonal(Board, Rows, Columns, MP40, AK47))
         return 1;
