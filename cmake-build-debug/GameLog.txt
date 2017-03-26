@@ -10,7 +10,7 @@
 - - - - - - - 
 
 
-Computer Player 1 plays in column 4
+Player 1 plays in column 7
 
 1 2 3 4 5 6 7 
 
@@ -19,7 +19,7 @@ Computer Player 1 plays in column 4
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- - - X - - - 
+- - - - - - X 
 
 
 Player 2 plays in column 7
@@ -30,23 +30,11 @@ Player 2 plays in column 7
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- - - - - - - 
-- - - X - - O 
+- - - - - - O 
+- - - - - - X 
 
 
-Computer Player 1 plays in column 5
-
-1 2 3 4 5 6 7 
-
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-- - - X X - O 
-
-
-Player 2 plays in column 3
+Player 1 plays in column 6
 
 1 2 3 4 5 6 7 
 
@@ -54,44 +42,8 @@ Player 2 plays in column 3
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- - - - - - - 
-- - O X X - O 
-
-
-Computer Player 1 plays in column 2
-
-1 2 3 4 5 6 7 
-
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-- X O X X - O 
-
-
-Player 2 plays in column 3
-
-1 2 3 4 5 6 7 
-
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-- - O - - - - 
-- X O X X - O 
-
-
-Computer Player 1 plays in column 7
-
-1 2 3 4 5 6 7 
-
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-- - O - - - X 
-- X O X X - O 
+- - - - - - O 
+- - - - - X X 
 
 
 Player 2 plays in column 6
@@ -102,68 +54,44 @@ Player 2 plays in column 6
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- - O - - - X 
-- X O X X O O 
+- - - - - O O 
+- - - - - X X 
 
 
-Computer Player 1 plays in column 1
-
-1 2 3 4 5 6 7 
-
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-- - O - - - X 
-X X O X X O O 
-
-
-Player 2 plays in column 5
+Player 1 plays in column 7
 
 1 2 3 4 5 6 7 
 
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- - - - - - - 
-- - O - O - X 
-X X O X X O O 
+- - - - - - X 
+- - - - - O O 
+- - - - - X X 
 
 
-Computer Player 1 plays in column 2
-
-1 2 3 4 5 6 7 
-
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-- X O - O - X 
-X X O X X O O 
-
-
-Player 2 plays in column 2
+Player 2 plays in column 6
 
 1 2 3 4 5 6 7 
 
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- O - - - - - 
-- X O - O - X 
-X X O X X O O 
+- - - - - O X 
+- - - - - O O 
+- - - - - X X 
 
 
-Computer Player 1 plays in column 4
+Player 1 plays in column 5
 
 1 2 3 4 5 6 7 
 
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- O - - - - - 
-- X O X O - X 
-X X O X X O O 
+- - - - - O X 
+- - - - - O O 
+- - - - X X X 
 
 
 Player 2 plays in column 4
@@ -173,45 +101,21 @@ Player 2 plays in column 4
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- O - O - - - 
-- X O X O - X 
-X X O X X O O 
+- - - - - O X 
+- - - - - O O 
+- - - O X X X 
 
 
-Computer Player 1 plays in column 1
-
-1 2 3 4 5 6 7 
-
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-- O - O - - - 
-X X O X O - X 
-X X O X X O O 
-
-
-Player 2 plays in column 1
+Player 1 plays in column 3
 
 1 2 3 4 5 6 7 
 
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-O O - O - - - 
-X X O X O - X 
-X X O X X O O 
-
-
-Computer Player 1 plays in column 3
-
-1 2 3 4 5 6 7 
-
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-O O X O - - - 
-X X O X O - X 
-X X O X X O O 
+- - - - - O X 
+- - - - - O O 
+- - X O X X X 
 
 
 Player 2 plays in column 3
@@ -220,11 +124,21 @@ Player 2 plays in column 3
 
 - - - - - - - 
 - - - - - - - 
-- - O - - - - 
-O O X O - - - 
-X X O X O - X 
-X X O X X O O 
+- - - - - - - 
+- - - - - O X 
+- - O - - O O 
+- - X O X X X 
 
 
+Player 1 plays in column 2
 
-Player 2 wins!
+1 2 3 4 5 6 7 
+
+- - - - - - - 
+- - - - - - - 
+- - - - - - - 
+- - - - - O X 
+- - O - - O O 
+- X X O X X X 
+
+
