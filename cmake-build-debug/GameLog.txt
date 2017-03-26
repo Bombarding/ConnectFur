@@ -10,7 +10,7 @@
 - - - - - - - 
 
 
-Player 1 plays in column 7
+Computer Player 1 plays in column 5
 
 1 2 3 4 5 6 7 
 
@@ -19,22 +19,10 @@ Player 1 plays in column 7
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- - - - - - X 
+- - - - X - - 
 
 
-Player 2 plays in column 7
-
-1 2 3 4 5 6 7 
-
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-- - - - - - - 
-- - - - - - O 
-- - - - - - X 
-
-
-Player 1 plays in column 6
+Computer Player 2 plays in column 7
 
 1 2 3 4 5 6 7 
 
@@ -42,11 +30,11 @@ Player 1 plays in column 6
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- - - - - - O 
-- - - - - X X 
+- - - - - - - 
+- - - - X - O 
 
 
-Player 2 plays in column 6
+Computer Player 1 plays in column 4
 
 1 2 3 4 5 6 7 
 
@@ -54,91 +42,213 @@ Player 2 plays in column 6
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- - - - - O O 
-- - - - - X X 
+- - - - - - - 
+- - - X X - O 
 
 
-Player 1 plays in column 7
+Computer Player 2 plays in column 6
 
 1 2 3 4 5 6 7 
 
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- - - - - - X 
-- - - - - O O 
-- - - - - X X 
+- - - - - - - 
+- - - - - - - 
+- - - X X O O 
 
 
-Player 2 plays in column 6
+Computer Player 1 plays in column 4
 
 1 2 3 4 5 6 7 
 
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- - - - - O X 
-- - - - - O O 
-- - - - - X X 
+- - - - - - - 
+- - - X - - - 
+- - - X X O O 
 
 
-Player 1 plays in column 5
+Computer Player 2 plays in column 3
 
 1 2 3 4 5 6 7 
 
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- - - - - O X 
-- - - - - O O 
-- - - - X X X 
+- - - - - - - 
+- - - X - - - 
+- - O X X O O 
 
 
-Player 2 plays in column 4
+Computer Player 1 plays in column 3
 
 1 2 3 4 5 6 7 
 
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- - - - - O X 
-- - - - - O O 
-- - - O X X X 
+- - - - - - - 
+- - X X - - - 
+- - O X X O O 
 
 
-Player 1 plays in column 3
+Computer Player 2 plays in column 5
 
 1 2 3 4 5 6 7 
 
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- - - - - O X 
-- - - - - O O 
-- - X O X X X 
+- - - - - - - 
+- - X X O - - 
+- - O X X O O 
 
 
-Player 2 plays in column 3
+Computer Player 1 plays in column 3
 
 1 2 3 4 5 6 7 
 
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- - - - - O X 
-- - O - - O O 
-- - X O X X X 
+- - X - - - - 
+- - X X O - - 
+- - O X X O O 
 
 
-Player 1 plays in column 2
+Computer Player 2 plays in column 6
 
 1 2 3 4 5 6 7 
 
 - - - - - - - 
 - - - - - - - 
 - - - - - - - 
-- - - - - O X 
-- - O - - O O 
-- X X O X X X 
+- - X - - - - 
+- - X X O O - 
+- - O X X O O 
 
 
+Computer Player 1 plays in column 1
+
+1 2 3 4 5 6 7 
+
+- - - - - - - 
+- - - - - - - 
+- - - - - - - 
+- - X - - - - 
+- - X X O O - 
+X - O X X O O 
+
+
+Computer Player 2 plays in column 4
+
+1 2 3 4 5 6 7 
+
+- - - - - - - 
+- - - - - - - 
+- - - - - - - 
+- - X O - - - 
+- - X X O O - 
+X - O X X O O 
+
+
+Computer Player 1 plays in column 7
+
+1 2 3 4 5 6 7 
+
+- - - - - - - 
+- - - - - - - 
+- - - - - - - 
+- - X O - - - 
+- - X X O O X 
+X - O X X O O 
+
+
+Computer Player 2 plays in column 4
+
+1 2 3 4 5 6 7 
+
+- - - - - - - 
+- - - - - - - 
+- - - O - - - 
+- - X O - - - 
+- - X X O O X 
+X - O X X O O 
+
+
+Computer Player 1 plays in column 6
+
+1 2 3 4 5 6 7 
+
+- - - - - - - 
+- - - - - - - 
+- - - O - - - 
+- - X O - X - 
+- - X X O O X 
+X - O X X O O 
+
+
+Computer Player 2 plays in column 2
+
+1 2 3 4 5 6 7 
+
+- - - - - - - 
+- - - - - - - 
+- - - O - - - 
+- - X O - X - 
+- - X X O O X 
+X O O X X O O 
+
+
+Computer Player 1 plays in column 6
+
+1 2 3 4 5 6 7 
+
+- - - - - - - 
+- - - - - - - 
+- - - O - X - 
+- - X O - X - 
+- - X X O O X 
+X O O X X O O 
+
+
+Computer Player 2 plays in column 4
+
+1 2 3 4 5 6 7 
+
+- - - - - - - 
+- - - O - - - 
+- - - O - X - 
+- - X O - X - 
+- - X X O O X 
+X O O X X O O 
+
+
+Computer Player 1 plays in column 7
+
+1 2 3 4 5 6 7 
+
+- - - - - - - 
+- - - O - - - 
+- - - O - X - 
+- - X O - X X 
+- - X X O O X 
+X O O X X O O 
+
+
+Computer Player 2 plays in column 5
+
+1 2 3 4 5 6 7 
+
+- - - - - - - 
+- - - O - - - 
+- - - O - X - 
+- - X O O X X 
+- - X X O O X 
+X O O X X O O 
+
+
+
+Player 2 wins!

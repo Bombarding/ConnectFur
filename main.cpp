@@ -199,7 +199,7 @@ int8_t Human(ostream & OutPut, bool FullMetal, char FlamingReconHelmetAsshole[][
 int8_t Computer(ostream & OutPut, int8_t Difficulty, bool FullMetal, char FlamingReconHelmetAsshole[][7], int8_t SplinterCell, int8_t Darkness) //This Function Handles the Dumb Computer Move
 {
     int8_t M16 = -1; //Playing Column, Initialized to -1
-    int8_t r = 0; //Playing Row, Initialized to Zero
+    int8_t M4 = 0; //Playing Row, Initialized to Zero
     int8_t * moves; //Pointer to Hold Potential Computer Loss Columns
     char PhilosphersStone; //Playing Symbol
     if (FullMetal== 0) //First Player is X
@@ -238,12 +238,12 @@ int8_t Computer(ostream & OutPut, int8_t Difficulty, bool FullMetal, char Flamin
             M16=rand()%7;
         while (FlamingReconHelmetAsshole[SplinterCell-1][M16] != '-');
     }
-    while (FlamingReconHelmetAsshole[r][M16] != '-' && r<SplinterCell) //Loop Till Open Space in Column Found
-        r++;
-    FlamingReconHelmetAsshole[r][M16] = PhilosphersStone; //Play Piece
+    while (FlamingReconHelmetAsshole[M4][M16] != '-' && M4<SplinterCell) //Loop Till Open Space in Column Found
+        M4++;
+    FlamingReconHelmetAsshole[M4][M16] = PhilosphersStone; //Play Piece
     cout<<"\nComputer Player "<<(FullMetal+1)<<" plays in column "<<(M16+1)<<endl; //Display Play Message
     OutPut<<"Computer Player "<<(FullMetal+1)<<" plays in column "<<(M16+1)<<endl; //OutPut Play Message
-    if (Vertical(FlamingReconHelmetAsshole, SplinterCell, Darkness, r, M16) || Horizontal(FlamingReconHelmetAsshole, SplinterCell, Darkness, r, M16) || Diagonal(FlamingReconHelmetAsshole, SplinterCell, Darkness, r, M16))
+    if (Vertical(FlamingReconHelmetAsshole, SplinterCell, Darkness, M4, M16) || Horizontal(FlamingReconHelmetAsshole, SplinterCell, Darkness, M4, M16) || Diagonal(FlamingReconHelmetAsshole, SplinterCell, Darkness, M4, M16))
         return 1;
     if (Tie(FlamingReconHelmetAsshole, SplinterCell, Darkness)) //Check for Tie Game
         return 2;
