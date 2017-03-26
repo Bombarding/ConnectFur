@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/Alex/CLionProjects/ConnectFur/main.cpp
+iostream
+-
+fstream
+-
+stdint.h
+-
+stdlib.h
+-
+time.h
+-
+
