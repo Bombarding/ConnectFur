@@ -82,6 +82,8 @@ int main()
             {
                 cout<<"Press: 0 Fur No. 1 Fur Yass";
                 cin>>LikelyInputVariable;
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cin.clear();
             }
             while (LikelyInputVariable < 0 || LikelyInputVariable > 1);
             WhoGoesFirst = LikelyInputVariable; //Pick who Goes First
@@ -174,9 +176,43 @@ void Creation(ostream & out, char b[][7], int8_t Rectangles, int8_t Colors)
 }
 
 //Function that handles the human move
-int8_t Human(ostream & out, bool FullMetal, char Board[][7], int8_t Rows, int8_t Columns)
+int8_t Human(ostream & out, bool Steel, char Board[][7], int8_t Rows, int8_t Columns)
 {
+    int AK47; //Col
+    int8_t MP40 = 0; //R 4 Row
+    char GameSymbol;
+    if(Steel == 0)
+        GameSymbol = 'X';
+    else
+        GameSymbol = 'O';
+    cout << "What Column would " << (Steel + 1) << " like to play" << endl;
+    do
+    {
+        cout << "Press '0' to quit, or Select Columns '1-7'" << endl;
+        cin >> AK47;
+    }while(AK47 < 0 || AK47 > 7);
+    if(AK47 == 0)
+        return -1;
+    AK47 -= 1;
+    //If a column has already been filled, select again
+    if(Board[MP40][AK47] != '-')
+    {
+        cout << "\nThat Column has already been Filled.\n" << endl;
+        return Human(out, Steel, Board, Rows, Columns);
+    }
+    //Loop Until there is an open space in the board
+    while(Board[MP40][AK47] != '-' && MP40<Rows)
+        MP40++;
+    Board[MP40][AK47] = GameSymbol;
+    cout<<"\nPlayer "<<(Steel + 1)<<" plays in column "<<(AK47 + 1)<<endl; //Display Play Message
+    out<<"Player "<<(Steel + 1)<<" plays in column "<<(AK47 + 1)<<endl; //Outfile Play Message
 
+    //Check for a winning condition..
+    if(Vertical(Board, Rows, Columns, MP40, AK47) || Horizontal(Board, Rows, Columns, MP40, AK47) || Diagonal(Board, Rows, Columns, MP40, AK47))
+        return 1;
+    if(TieGame(Board, Rows, Columns))
+        return 2;
+    return 0;
 }
 
 //Function that handles the Computer Move
